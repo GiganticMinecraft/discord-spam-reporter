@@ -65,6 +65,12 @@ impl EventHandler for Handler {
             return;
         }
 
+        let notes = notes
+            .iter()
+            .map(|s| format!("- {}", s))
+            .collect::<Vec<String>>()
+            .join("\n");
+
         // NOTE:
         // あまりに長いSPAMを送られるとそれ自身をメッセージに含むのでレポートできない可能性がある
         let msg_s = (&c.report_channel)
@@ -85,11 +91,7 @@ impl EventHandler for Handler {
                         .field(
                             "violation(s)",
                             MessageBuilder::new().push_codeblock_safe(
-                                (&notes)
-                                    .iter()
-                                    .map(|s| format!("- {}", s))
-                                    .collect::<Vec<String>>()
-                                    .join("\n"),
+                                &notes,
                                 None,
                             ),
                             false,
@@ -106,6 +108,8 @@ impl EventHandler for Handler {
         if let Err(why) = msg_s {
             println!("Error sending message: {:?}", why);
         }
+
+        let _ = msg.guild_id.unwrap().ban_with_reason(&ctx.http, &msg.author.id, 7, &notes).await;
     }
 
     async fn ready(&self, _: Context, ready: Ready) {
