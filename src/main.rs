@@ -112,7 +112,11 @@ impl EventHandler for Handler {
             println!("Error sending message: {:?}", why);
         }
 
-        let _ = msg.guild_id.unwrap().ban_with_reason(&ctx.http, &msg.author.id, 7, &notes).await;
+
+        let mut member = c.guild.member(&ctx.http, &msg.author.id).await.unwrap();
+        if let Err(why) = member.add_role(&ctx.http, &c.role).await {
+            println!("Error adding a role: {:?}", why);
+        };
     }
 
     async fn ready(&self, _: Context, ready: Ready) {
