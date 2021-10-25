@@ -11,7 +11,7 @@ use serenity::{
     model::{
         channel::Message,
         gateway::Ready,
-        id::{ChannelId, GuildId},
+        id::{ChannelId, GuildId, RoleId},
     },
     prelude::*,
     utils::MessageBuilder,
@@ -19,6 +19,7 @@ use serenity::{
 
 mod parse_channel_id;
 mod parse_guild_id;
+mod parse_role_id;
 mod parse_regexp;
 
 #[derive(Debug, Deserialize)]
@@ -28,6 +29,8 @@ struct Config {
     report_channel: ChannelId,
     #[serde(with = "parse_guild_id")]
     guild: GuildId,
+    #[serde(with = "parse_role_id")]
+    role: RoleId,
     filters: Vec<Filter>,
 }
 
