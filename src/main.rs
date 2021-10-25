@@ -112,6 +112,10 @@ impl EventHandler for Handler {
             println!("Error sending message: {:?}", why);
         }
 
+        // TODO: メッセージの削除
+        if let Err(why) = msg.delete(&ctx.http).await {
+            println!("Error deleting message: {:?}", why);
+        };
 
         let mut member = c.guild.member(&ctx.http, &msg.author.id).await.unwrap();
         if let Err(why) = member.add_role(&ctx.http, &c.role).await {
