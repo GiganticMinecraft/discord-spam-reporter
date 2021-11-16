@@ -1,7 +1,7 @@
 # discord-spam-reporter
-![Build](https://img.shields.io/github/workflow/status/yanorei32/discord-spam-reporter/CI?logo=github&style=for-the-badge)
-![License](https://img.shields.io/github/license/yanorei32/discord-spam-reporter.svg?style=for-the-badge&color=blue)
-![Top Language](https://img.shields.io/github/languages/top/yanorei32/discord-spam-reporter.svg?style=for-the-badge)
+![Build](https://img.shields.io/github/workflow/status/GiganticMinecraft/discord-spam-reporter/CI?logo=github&style=for-the-badge)
+![License](https://img.shields.io/github/license/GiganticMinecraft/discord-spam-reporter.svg?style=for-the-badge&color=blue)
+![Top Language](https://img.shields.io/github/languages/top/GiganticMinecraft/discord-spam-reporter.svg?style=for-the-badge)
 
 ## 導入
 (※DiscordのBotトークンが必要です)
