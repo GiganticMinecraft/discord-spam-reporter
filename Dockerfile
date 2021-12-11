@@ -1,10 +1,11 @@
 FROM ekidd/rust-musl-builder AS builder
 
-RUN cargo new --bin app
 WORKDIR /app
 
-COPY ./Cargo.lock ./Cargo.lock
-COPY ./Cargo.toml ./Cargo.toml
+COPY Cargo.lock .
+COPY Cargo.toml .
+RUN mkdir src
+RUN echo "fn main() {println!(\"if you see this, the build broke\")}" > src/main.rs
 RUN cargo build --release
 RUN rm src/*.rs
 
