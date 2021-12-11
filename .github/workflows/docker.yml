@@ -35,5 +35,5 @@ jobs:
           IMAGE_NAME: ${{ steps.string.outputs.lowercase }}
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
-          tags: $IMAGE_NAME:latest
-          cache-from: $IMAGE_NAME:latest
+          tags: ${{ env.IMAGE_NAME }}:latest
+          cache-from: ${{ env.IMAGE_NAME }}:latest
