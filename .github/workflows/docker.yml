@@ -32,7 +32,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         env:
-          IMAGE_NAME: ${{ steps.string.outputs.lowercase }}
+          IMAGE_NAME: ghcr.io/${{ steps.string.outputs.lowercase }}
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           tags: ${{ env.IMAGE_NAME }}:latest
