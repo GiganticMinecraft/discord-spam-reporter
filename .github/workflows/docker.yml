@@ -32,4 +32,4 @@ jobs:
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           labels: ${{ env.IMAGE_NAME }}:latest
-          cache_froms: ${{ env.IMAGE_NAME }}:latest
+          cache-from: ${{ env.IMAGE_NAME }}:latest
