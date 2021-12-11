@@ -28,7 +28,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2
         env:
-          IMAGE_NAME: GiganticMinecraft/discord-spam-reporter
+          IMAGE_NAME: ${{ github.repository_owner }}/discord-spam-reporter
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
           labels: ${{ env.IMAGE_NAME }}:latest
