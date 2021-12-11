@@ -25,11 +25,15 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: ASzc/change-string-case-action@v1
+        id: string
+        with:
+          string: ${{ github.repository_owner }}/discord-spam-reporter
       - name: Build and push
         uses: docker/build-push-action@v2
         env:
-          IMAGE_NAME: ${{ github.repository_owner }}/discord-spam-reporter
+          IMAGE_NAME: ${{ steps.string.outputs.lowercase }}
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
-          tags: ${{ env.IMAGE_NAME }}:latest
-          cache-from: ${{ env.IMAGE_NAME }}:latest
+          tags: $IMAGE_NAME:latest
+          cache-from: $IMAGE_NAME:latest
