@@ -1,0 +1,8 @@
+version: '3.7'
+services:
+  app:
+    image: ghcr.io/GiganticMinecraft/discord-spam-reporter:latest
+    environment:
+      - CONFIG=/config.yml
+    volumes:
+      - ./config.yml:/config.yml:ro
