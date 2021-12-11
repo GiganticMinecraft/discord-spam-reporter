@@ -31,5 +31,5 @@ jobs:
           IMAGE_NAME: ${{ github.repository_owner }}/discord-spam-reporter
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
-          labels: ${{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.IMAGE_NAME }}:latest
           cache-from: ${{ env.IMAGE_NAME }}:latest
