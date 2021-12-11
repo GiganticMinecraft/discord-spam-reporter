@@ -27,6 +27,9 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push
         uses: docker/build-push-action@v2
+        env:
+          IMAGE_NAME: GiganticMinecraft/discord-spam-reporter
         with:
           push: ${{ github.ref == 'refs/heads/master' }}
-          labels: GiganticMinecraft/discord-spam-reporter:latest
+          labels: ${{ env.IMAGE_NAME }}:latest
+          cache_froms: ${{ env.IMAGE_NAME }}:latest
