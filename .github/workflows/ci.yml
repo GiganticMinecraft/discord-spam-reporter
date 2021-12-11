@@ -49,14 +49,3 @@ jobs:
         with:
           command: test
           args: --release
-
-      - name: build
-        uses: actions-rs/cargo@v1.0.3
-        with:
-          command: build
-          args: --release
-
-      - uses: actions/upload-artifact@v2
-        with:
-          name: my-artifact
-          path: ./target/release/discord-spam-reporter
