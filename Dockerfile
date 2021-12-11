@@ -13,8 +13,7 @@ RUN cargo build --release
 
 FROM gcr.io/distroless/cc
 
-RUN mkdir app
-COPY --from=builder --chown=nonroot:nonroot /app/target/release/discord-spam-reporter /app/
+COPY --from=builder --chown=nonroot:nonroot /app/target/release/discord-spam-reporter /
 USER nonroot
 
-ENTRYPOINT ["/app/discord-spam-reporter"]
+ENTRYPOINT ["discord-spam-reporter"]
