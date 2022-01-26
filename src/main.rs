@@ -33,7 +33,7 @@ struct Config {
     guild: GuildId,
     #[serde(with = "parse_role_id")]
     role: RoleId,
-    filters: Vec<Filter>,
+    rules: Vec<Filter>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -60,7 +60,7 @@ impl EventHandler for Handler {
             return;
         }
 
-        let notes: Vec<&str> = (&c.filters)
+        let notes: Vec<&str> = (&c.rules)
             .iter()
             .filter(|s| s.pattern.is_match(&msg.content))
             .map(|s| s.note.as_str())
