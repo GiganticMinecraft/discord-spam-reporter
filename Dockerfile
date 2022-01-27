@@ -11,6 +11,7 @@ RUN rm src/*.rs
 
 COPY ./src ./src
 RUN cargo build --release
+RUN chmod +x /app/target/x86_64-unknown-linux-musl/release/discord-spam-reporter
 
 FROM gcr.io/distroless/cc
 
