@@ -39,5 +39,18 @@ rules:
 ### Dockerを使う場合
 
 1. `config.yml`を[上記](#バイナリを直接使う場合)と同様に作成する
-2. `docker-compose.yml`を[こちら](./docker-compose.yml)のように作成する
+2. `docker-compose.yml`を以下の内容で作成する（内容は適宜書き換える）
+
+```yml
+version: '3'
+services:
+  bot:
+    image: ghcr.io/giganticminecraft/discord-spam-reporter:latest
+    restart: always
+    volumes:
+      - ./config.yml:/config.yml
+    environment:
+      - CONFIG=/config.yml
+```
+
 3. `docker-compose up`
