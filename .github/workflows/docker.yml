@@ -26,8 +26,6 @@ jobs:
           echo "::set-output name=name::$NAME"
       - name: Build and push
         uses: docker/build-push-action@v2
-        env:
-          DOCKER_BUILDKIT: 1
         with:
           push: true
           tags: ${{ steps.image.outputs.name }}:latest
