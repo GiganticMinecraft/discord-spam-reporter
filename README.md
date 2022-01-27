@@ -4,7 +4,9 @@
 ![License](https://img.shields.io/github/license/GiganticMinecraft/discord-spam-reporter.svg?style=for-the-badge&color=blue)
 ![Top Language](https://img.shields.io/github/languages/top/GiganticMinecraft/discord-spam-reporter.svg?style=for-the-badge)
 
-## 導入（バイナリ）
+## 導入
+
+### バイナリを直接使う場合
 
 (※DiscordのBotトークンが必要です)
 
