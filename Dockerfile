@@ -18,4 +18,4 @@ FROM gcr.io/distroless/cc
 COPY --from=builder --chown=nonroot:nonroot /app/target/x86_64-unknown-linux-musl/release/discord-spam-reporter /
 USER nonroot
 
-ENTRYPOINT ["discord-spam-reporter"]
+ENTRYPOINT ["/discord-spam-reporter"]
