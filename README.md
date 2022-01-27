@@ -36,3 +36,8 @@ rules:
 5. 環境変数`CONFIG`に`config.yml`の存在する場所をフルパスまたはワーキングディレクトリからの相対パスで指定する
 (例 `/home/kisaragi/projects/discord-spam-reporter/config.yml`, `./config.yml`\)
 
+### Dockerを使う場合
+
+1. `config.yml`を[上記](#バイナリを直接使う場合)と同様に作成する
+2. `docker-compose.yml`を[こちら](./docker-compose.yml)のように作成する
+3. `docker-compose up`
