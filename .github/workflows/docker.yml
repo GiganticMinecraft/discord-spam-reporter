@@ -20,7 +20,7 @@ jobs:
       - name: Output image name
         id: image
         env:
-          OWNER: $(( github.repository_owner ))
+          OWNER: ${{ github.repository_owner }}
         run: |
           NAME="ghcr.io/${OWNER,,}/discord-spam-reporter"
           echo "::set-output name=name::$NAME"
