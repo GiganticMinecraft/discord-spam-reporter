@@ -4,23 +4,18 @@ WORKDIR /app
 
 COPY Cargo.lock .
 COPY Cargo.toml .
-
-RUN <<EOF
-  mkdir src
-  echo "fn main() {println!(\"if you see this, the build broke\")}" > src/main.rs
-  cargo build --release
-  rm -rf src
-EOF
+RUN mkdir src
+RUN echo "fn main() {println!(\"if you see this, the build broke\")}" > src/main.rs
+RUN cargo build --release
+RUN rm -rf /src
 
 COPY ./src ./src
-RUN <<EOF
-  cargo build --release
-  chmod +x ./target/x86_64-unknown-linux-musl/release/discord-spam-reporter
-EOF
+RUN cargo build --release
+RUN chmod +x /app/target/x86_64-unknown-linux-musl/release/discord-spam-reporter
 
 FROM gcr.io/distroless/cc
 
-USER nonroot
 COPY --from=builder --chown=nonroot:nonroot /app/target/x86_64-unknown-linux-musl/release/discord-spam-reporter /
+USER nonroot
 
 ENTRYPOINT ["/discord-spam-reporter"]
