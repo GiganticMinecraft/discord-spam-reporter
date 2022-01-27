@@ -38,16 +38,9 @@ jobs:
         uses: actions-rs/cargo@v1.0.3
         with:
           command: test
-          args: --no-run --locked --release
+          args: --no-run --locked
 
       - name: unit test
         uses: actions-rs/cargo@v1.0.3
         with:
           command: test
-          args: --release
-
-      - name: build
-        uses: actions-rs/cargo@v1.0.3
-        with:
-          command: build
-          args: --release
