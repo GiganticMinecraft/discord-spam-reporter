@@ -33,4 +33,6 @@ rules:
     note: "free nitroを検知"
 ```
 
-5. 環境変数`CONFIG`に`config.yml`の存在する場所をフルパスまたはワーキングディレクトリからの相対パスで指定する<br>\(例 `/home/kisaragi/projects/discord-spam-reporter/config.yml`, `./config.yml`\)
+5. 環境変数`CONFIG`に`config.yml`の存在する場所をフルパスまたはワーキングディレクトリからの相対パスで指定する
+(例 `/home/kisaragi/projects/discord-spam-reporter/config.yml`, `./config.yml`\)
+
