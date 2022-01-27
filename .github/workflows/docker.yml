@@ -23,6 +23,6 @@ jobs:
           IMAGE_NAME: ${{ github.repository_owner }}/discord-spam-reporter
         with:
           push: true
-          labels: ghcr.io/${IMAGE_NAME,,}:latest
+          tags: ghcr.io/${IMAGE_NAME,,}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
