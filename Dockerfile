@@ -7,7 +7,7 @@ COPY Cargo.toml .
 RUN mkdir src
 RUN echo "fn main() {println!(\"if you see this, the build broke\")}" > src/main.rs
 RUN cargo build --release
-RUN rm src/*.rs
+RUN rm -rf /src
 
 COPY ./src ./src
 RUN cargo build --release
