@@ -1,5 +1,10 @@
 name: Run dockerfile linter
-on: [pull_request]
+on:
+  pull_request:
+    paths:
+      - "Dockerfile"
+      - "./github/workflows/dockerlint.yml"
+      
 jobs:
   hadolint:
     name: runner / hadolint
