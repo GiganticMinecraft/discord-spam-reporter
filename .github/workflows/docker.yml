@@ -1,8 +1,9 @@
 name: Build Docker
 
 on:
-  # 終わったらmaster以外へのpushは発火させない
-  - push
+  push:
+    branches:
+      - master
 
 jobs:
   build:
