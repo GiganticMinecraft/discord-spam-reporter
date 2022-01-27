@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - master
+    paths-ignore:
+      - ".github/workflows/**"
+      - "!.github/workflows/docker.yml"
+      - "README.md"
+      - "LICENSE"
+      - "renovate.json"
+      - ".gitignore"
 
 jobs:
   build:
