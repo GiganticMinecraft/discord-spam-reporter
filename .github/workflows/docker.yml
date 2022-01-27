@@ -26,10 +26,8 @@ jobs:
           echo "::set-output name=name::$NAME"
       - name: Build and push
         uses: docker/build-push-action@v2
-        env:
-          IMAGE_NAME: ${{ steps.image.outputs.name }}
         with:
           push: true
-          tags: $IMAGE_NAME:latest
+          tags: ${{ steps.image.outputs.name }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
