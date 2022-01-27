@@ -1,0 +1,8 @@
+version: '3'
+services:
+  bot:
+    image: ghcr.io/giganticminecraft/discord-spam-reporter:latest
+    volumes:
+      - ./config.yml:/config.yml
+    environment:
+      - CONFIG=/config.yml
