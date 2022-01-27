@@ -1,4 +1,4 @@
-FROM ekidd/rust-musl-builder AS builder
+FROM ekidd/rust-musl-builder:1.57.0 AS builder
 
 WORKDIR /app
 
