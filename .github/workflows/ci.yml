@@ -8,10 +8,6 @@ on:
       - 'Cargo.lock'
       - 'rust-toolchain'
       - '.github/workflows/ci.yml'
-  push:
-    branches:
-      - master
-      - dev-*
 
 env:
   CARGO_INCREMENTAL: 0
