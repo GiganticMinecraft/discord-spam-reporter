@@ -39,7 +39,8 @@ rules:
 ### Dockerを使う場合
 
 1. `config.yml`を[上記](#バイナリを直接使う場合)と同様に作成する
-2. `docker-compose.yml`を以下の内容で作成する（内容は適宜書き換える）
+2. `docker-compose.yml`を以下の内容で作成する（内容は適宜書き換える）  
+`volumes`の`./config.yml`のパスは[上記](#バイナリを直接使う場合)で`CONFIG`を指定する場合のものと同様です。
 
 ```yml
 version: '3'
