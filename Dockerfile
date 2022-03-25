@@ -13,12 +13,7 @@ RUN rm -rf /src
 COPY ./src ./src
 RUN cargo build --release
 
-# debugging
-RUN ls -l
-RUN cd target && ls -l
-RUN cd release && ls -l
-
-RUN chmod +x /app/target/x86_64-unknown-linux-musl/release/discord-spam-reporter
+RUN chmod +x ./target/release/discord-spam-reporter
 
 FROM gcr.io/distroless/cc
 
