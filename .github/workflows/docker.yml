@@ -33,9 +33,10 @@ jobs:
           NAME="ghcr.io/${OWNER,,}/discord-spam-reporter"
           echo "::set-output name=name::$NAME"
       - name: Build and push
-        uses: docker/build-push-action@v2
+        uses: aevea/action-kaniko@master
         with:
-          push: true
-          tags: ${{ steps.image.outputs.name }}:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          registry: ghcr.io
+          password: ${{ secrets.GITHUB_TOKEN }}
+          image: ${{ steps.image.outputs.name }}
+          cache: true
+          cache_registry: cache
