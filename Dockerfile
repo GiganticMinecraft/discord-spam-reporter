@@ -17,7 +17,7 @@ RUN chmod +x ./target/release/discord-spam-reporter
 
 FROM gcr.io/distroless/cc
 
-COPY --from=builder --chown=nonroot:nonroot /app/target/x86_64-unknown-linux-musl/release/discord-spam-reporter /
+COPY --from=builder --chown=nonroot:nonroot /app/target/release/discord-spam-reporter /
 USER nonroot
 
 ENTRYPOINT ["/discord-spam-reporter"]
