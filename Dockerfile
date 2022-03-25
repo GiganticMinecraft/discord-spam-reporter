@@ -1,5 +1,6 @@
 FROM ekidd/rust-musl-builder:1.57.0 AS builder
 
+USER root
 WORKDIR /app
 
 COPY Cargo.lock .
