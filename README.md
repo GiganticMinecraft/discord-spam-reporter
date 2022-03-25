@@ -46,7 +46,7 @@ rules:
 version: '3'
 services:
   bot:
-    image: ghcr.io/giganticminecraft/discord-spam-reporter:latest
+    image: ghcr.io/giganticminecraft/discord-spam-reporter/image:latest
     restart: always
     volumes:
       - ./config.yml:/config.yml
