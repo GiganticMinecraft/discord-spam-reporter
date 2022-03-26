@@ -62,7 +62,7 @@ impl EventHandler for Handler {
 
         let notes: Vec<&str> = (&c.rules)
             .iter()
-            .filter(|s| s.pattern.is_match(&msg.content))
+            .filter(|s| s.pattern.is_match(&msg.content).unwrap_or(false))
             .map(|s| s.note.as_str())
             .collect();
 
