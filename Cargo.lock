@@ -175,7 +175,6 @@ version = "0.1.0"
 dependencies = [
  "fancy-regex",
  "once_cell",
- "regex",
  "serde",
  "serde_yaml",
  "serenity",
