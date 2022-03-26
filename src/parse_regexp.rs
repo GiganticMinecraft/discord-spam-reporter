@@ -1,4 +1,4 @@
-use regex::Regex;
+use fancy_regex::Regex;
 use serde::{self, Deserialize, Deserializer};
 
 pub fn deserialize<'de, D>(deserializer: D) -> Result<Regex, D::Error>

@@ -4,8 +4,8 @@ use std::env;
 use std::fs::File;
 use std::io::BufReader;
 
+use fancy_regex::Regex;
 use once_cell::sync::OnceCell;
-use regex::Regex;
 use serde::{self, Deserialize};
 
 use serenity::{
@@ -21,8 +21,8 @@ use serenity::{
 
 mod parse_channel_id;
 mod parse_guild_id;
-mod parse_role_id;
 mod parse_regexp;
+mod parse_role_id;
 
 #[derive(Debug, Deserialize)]
 struct Config {
@@ -62,7 +62,7 @@ impl EventHandler for Handler {
 
         let notes: Vec<&str> = (&c.rules)
             .iter()
-            .filter(|s| s.pattern.is_match(&msg.content))
+            .filter(|s| s.pattern.is_match(&msg.content).unwrap_or(false))
             .map(|s| s.note.as_str())
             .collect();
 
@@ -97,10 +97,7 @@ impl EventHandler for Handler {
                         )
                         .field(
                             "violation(s)",
-                            MessageBuilder::new().push_codeblock_safe(
-                                &notes,
-                                None,
-                            ),
+                            MessageBuilder::new().push_codeblock_safe(&notes, None),
                             false,
                         )
                         .field(
@@ -116,7 +113,6 @@ impl EventHandler for Handler {
             println!("Error sending message: {:?}", why);
         }
 
-        // TODO: メッセージの削除
         if let Err(why) = msg.delete(&ctx.http).await {
             println!("Error deleting message: {:?}", why);
         };
