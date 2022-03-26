@@ -6,9 +6,9 @@
 
 ## 導入
 
-### バイナリを直接使う場合
+導入にはDiscordのBotトークンが必要です。
 
-(※DiscordのBotトークンが必要です)
+### バイナリを直接使う場合
 
 1. `cargo build --release`
 2. `target/release/discord-spam-reporter` を取り出す
