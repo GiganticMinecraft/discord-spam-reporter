@@ -21,8 +21,8 @@ use serenity::{
 
 mod parse_channel_id;
 mod parse_guild_id;
-mod parse_role_id;
 mod parse_regexp;
+mod parse_role_id;
 
 #[derive(Debug, Deserialize)]
 struct Config {
@@ -97,10 +97,7 @@ impl EventHandler for Handler {
                         )
                         .field(
                             "violation(s)",
-                            MessageBuilder::new().push_codeblock_safe(
-                                &notes,
-                                None,
-                            ),
+                            MessageBuilder::new().push_codeblock_safe(&notes, None),
                             false,
                         )
                         .field(
@@ -116,7 +113,6 @@ impl EventHandler for Handler {
             println!("Error sending message: {:?}", why);
         }
 
-        // TODO: メッセージの削除
         if let Err(why) = msg.delete(&ctx.http).await {
             println!("Error deleting message: {:?}", why);
         };
