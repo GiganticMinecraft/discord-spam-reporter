@@ -25,7 +25,7 @@ role: 918273688817322922
 # Botのトークン
 token: "Your token here"
 # patternには正規表現を指定する。
-# 正規表現の書式は https://docs.rs/regex/1.5.4/regex/#syntax を参照。
+# 正規表現の書式は https://docs.rs/fancy-regex/latest/fancy_regex/#syntax を参照。
 rules:
   - pattern: ".+"
     note: "何らかのメッセージ"
