@@ -140,10 +140,13 @@ async fn main() {
         )
         .unwrap();
 
-    let mut client = Client::builder(&CONFIG.get().unwrap().token)
-        .event_handler(Handler)
-        .await
-        .expect("Failed to create client");
+    let mut client = Client::builder(
+        &CONFIG.get().unwrap().token,
+        GatewayIntents::non_privileged().union(GatewayIntents::MESSAGE_CONTENT),
+    )
+    .event_handler(Handler)
+    .await
+    .expect("Failed to create client");
 
     if let Err(why) = client.start().await {
         println!("Client error: {:?}", why);
