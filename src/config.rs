@@ -1,8 +1,8 @@
 use crate::parsers::*;
 
-use serenity::model::id::{ChannelId, GuildId, RoleId};
 use fancy_regex::Regex;
 use serde::{self, Deserialize};
+use serenity::model::id::{ChannelId, GuildId, RoleId};
 
 #[derive(Debug, Deserialize)]
 pub struct EnvConfig {

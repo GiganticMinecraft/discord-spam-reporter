@@ -1,16 +1,13 @@
 use discord_spam_reporter::config::{Config, EnvConfig};
 
-use std::{env, fs::File, io::BufReader};
 use once_cell::sync::OnceCell;
 use serenity::{
     async_trait,
-    model::{
-        channel::Message,
-        gateway::Ready,
-    },
+    model::{channel::Message, gateway::Ready},
     prelude::*,
     utils::MessageBuilder,
 };
+use std::{env, fs::File, io::BufReader};
 
 static CONFIG: OnceCell<Config> = OnceCell::new();
 static ENV_CONFIG: OnceCell<EnvConfig> = OnceCell::new();
@@ -88,7 +85,11 @@ impl EventHandler for Handler {
             println!("Error deleting message: {:?}", why);
         };
 
-        let mut member = env_config.guild.member(&ctx.http, &msg.author.id).await.unwrap();
+        let mut member = env_config
+            .guild
+            .member(&ctx.http, &msg.author.id)
+            .await
+            .unwrap();
         if let Err(why) = member.add_role(&ctx.http, &env_config.role).await {
             println!("Error adding a role: {:?}", why);
         };
@@ -110,7 +111,9 @@ async fn main() {
             .expect("Failed to parse CONFIG"),
         )
         .unwrap();
-    ENV_CONFIG.set(envy::from_env::<EnvConfig>().expect("Failed to parse CONFIG from env variables")).unwrap();
+    ENV_CONFIG
+        .set(envy::from_env::<EnvConfig>().expect("Failed to parse CONFIG from env variables"))
+        .unwrap();
 
     let mut client = Client::builder(
         &ENV_CONFIG.get().unwrap().token,
