@@ -23,7 +23,7 @@ mod parse_regexp;
 mod parse_role_id;
 
 #[derive(Debug, Deserialize)]
-struct Config {
+struct EnvConfig {
     token: String,
     #[serde(with = "parse_channel_id")]
     report_channel: ChannelId,
@@ -31,6 +31,10 @@ struct Config {
     guild: GuildId,
     #[serde(with = "parse_role_id")]
     role: RoleId,
+}
+
+#[derive(Debug, Deserialize)]
+struct Config {
     rules: Vec<Filter>,
 }
 
@@ -43,6 +47,8 @@ struct Filter {
 
 static CONFIG: OnceCell<Config> = OnceCell::new();
 
+static ENV_CONFIG: OnceCell<EnvConfig> = OnceCell::new();
+
 struct Handler;
 
 #[async_trait]
@@ -52,13 +58,14 @@ impl EventHandler for Handler {
             return;
         }
 
-        let c = CONFIG.get().unwrap();
+        let config = CONFIG.get().unwrap();
+        let env_config = ENV_CONFIG.get().unwrap();
 
-        if (&msg.guild_id).filter(|v| v == &c.guild).is_none() {
+        if (&msg.guild_id).filter(|v| v == &env_config.guild).is_none() {
             return;
         }
 
-        let notes: Vec<&str> = (&c.rules)
+        let notes: Vec<&str> = (&config.rules)
             .iter()
             .filter(|s| s.pattern.is_match(&msg.content).unwrap_or(false))
             .map(|s| s.note.as_str())
@@ -78,7 +85,7 @@ impl EventHandler for Handler {
         // あまりに長いSPAMを送られるとそれ自身をメッセージに含むのでレポートできない可能性がある
         // 色は6桁続いていたほうが読みやすい
         #[allow(clippy::unreadable_literal)]
-        let msg_s = (&c.report_channel)
+        let msg_s = (&env_config.report_channel)
             .send_message(&ctx.http, |m| {
                 m.embed(|e| {
                     e.title(":x: violation detected")
@@ -115,8 +122,8 @@ impl EventHandler for Handler {
             println!("Error deleting message: {:?}", why);
         };
 
-        let mut member = c.guild.member(&ctx.http, &msg.author.id).await.unwrap();
-        if let Err(why) = member.add_role(&ctx.http, &c.role).await {
+        let mut member = env_config.guild.member(&ctx.http, &msg.author.id).await.unwrap();
+        if let Err(why) = member.add_role(&ctx.http, &env_config.role).await {
             println!("Error adding a role: {:?}", why);
         };
     }
@@ -137,9 +144,10 @@ async fn main() {
             .expect("Failed to parse CONFIG"),
         )
         .unwrap();
+    ENV_CONFIG.set(envy::from_env::<EnvConfig>().expect("Failed to parse CONFIG from env variables")).unwrap();
 
     let mut client = Client::builder(
-        &CONFIG.get().unwrap().token,
+        &ENV_CONFIG.get().unwrap().token,
         GatewayIntents::non_privileged().union(GatewayIntents::MESSAGE_CONTENT),
     )
     .event_handler(Handler)
