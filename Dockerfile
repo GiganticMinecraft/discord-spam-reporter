@@ -1,23 +1,23 @@
-FROM ekidd/rust-musl-builder:1.57.0 AS builder
-
-USER root
+# syntax=docker/dockerfile:1.4
+### Builder ###
+FROM clux/muslrust:1.63.0 AS chef
+RUN cargo install cargo-chef
 WORKDIR /app
 
-COPY Cargo.lock .
-COPY Cargo.toml .
-RUN mkdir src
-RUN echo "fn main() {println!(\"if you see this, the build broke\")}" > src/main.rs
-RUN cargo build --release
-RUN rm -rf /src
+FROM chef AS planner
+COPY --link . .
+RUN cargo chef prepare --recipe-path recipe.json
 
-COPY ./src ./src
-RUN cargo build --release
+FROM chef AS build
+COPY --from=planner --link /app/recipe.json recipe.json
+RUN cargo chef cook --release --target x86_64-unknown-linux-musl --recipe-path recipe.json
 
-RUN chmod +x ./target/release/discord-spam-reporter
+COPY --link . .
+RUN cargo build --target x86_64-unknown-linux-musl --release
 
 FROM gcr.io/distroless/cc
 
-COPY --from=builder --chown=nonroot:nonroot /app/target/release/discord-spam-reporter /
+COPY --from=builder --link --chown=nonroot:nonroot /app/target/x86_64-unknown-linux-musl/release/discord-spam-reporter /
 USER nonroot
 
 ENTRYPOINT ["/discord-spam-reporter"]
