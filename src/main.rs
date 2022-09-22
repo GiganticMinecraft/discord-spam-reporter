@@ -7,7 +7,7 @@ use serenity::{
     prelude::*,
     utils::MessageBuilder,
 };
-use std::{env, fs::File, io::BufReader};
+use std::{fs::File, io::BufReader};
 
 static CONFIG: OnceCell<Config> = OnceCell::new();
 static ENV_CONFIG: OnceCell<EnvConfig> = OnceCell::new();
@@ -102,17 +102,17 @@ impl EventHandler for Handler {
 
 #[tokio::main]
 async fn main() {
+    ENV_CONFIG
+        .set(envy::from_env::<EnvConfig>().expect("Failed to parse ENV_CONFIG from env variables"))
+        .unwrap();
     CONFIG
         .set(
             serde_yaml::from_reader(BufReader::new(
-                File::open(env::var("CONFIG").expect("Failed to lookup CONFIG environment"))
+                File::open(&ENV_CONFIG.get().unwrap().config_file_path)
                     .expect("Failed to open CONFIG"),
             ))
             .expect("Failed to parse CONFIG"),
         )
-        .unwrap();
-    ENV_CONFIG
-        .set(envy::from_env::<EnvConfig>().expect("Failed to parse CONFIG from env variables"))
         .unwrap();
 
     let mut client = Client::builder(
