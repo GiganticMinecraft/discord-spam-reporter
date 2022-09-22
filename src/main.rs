@@ -1,45 +1,18 @@
-use discord_spam_reporter::parsers::*;
+use discord_spam_reporter::config::{Config, EnvConfig};
 
 use std::{env, fs::File, io::BufReader};
-use fancy_regex::Regex;
 use once_cell::sync::OnceCell;
-use serde::{self, Deserialize};
 use serenity::{
     async_trait,
     model::{
         channel::Message,
         gateway::Ready,
-        id::{ChannelId, GuildId, RoleId},
     },
     prelude::*,
     utils::MessageBuilder,
 };
 
-#[derive(Debug, Deserialize)]
-struct EnvConfig {
-    token: String,
-    #[serde(with = "parse_channel_id")]
-    report_channel: ChannelId,
-    #[serde(with = "parse_guild_id")]
-    guild: GuildId,
-    #[serde(with = "parse_role_id")]
-    role: RoleId,
-}
-
-#[derive(Debug, Deserialize)]
-struct Config {
-    rules: Vec<Filter>,
-}
-
-#[derive(Debug, Deserialize)]
-struct Filter {
-    #[serde(with = "parse_regexp")]
-    pattern: Regex,
-    note: String,
-}
-
 static CONFIG: OnceCell<Config> = OnceCell::new();
-
 static ENV_CONFIG: OnceCell<EnvConfig> = OnceCell::new();
 
 struct Handler;
