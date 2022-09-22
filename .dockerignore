@@ -1,0 +1,11 @@
+.git
+.github
+.idea
+target
+
+.env
+.env.example
+.gitignore
+LICENSE
+README.md
+renovate.json

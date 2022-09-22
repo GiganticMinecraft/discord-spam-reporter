@@ -15,4 +15,4 @@ jobs:
         uses: reviewdog/action-hadolint@v1
         with:
           reporter: github-pr-review
-          hadolint_ignore: DL3006 DL3059
+          hadolint_ignore: DL3006 DL3021 DL3059
