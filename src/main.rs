@@ -1,52 +1,15 @@
-use std::env;
-use std::fs::File;
-use std::io::BufReader;
+use discord_spam_reporter::config::{Config, EnvConfig};
 
-use fancy_regex::Regex;
 use once_cell::sync::OnceCell;
-use serde::{self, Deserialize};
-
 use serenity::{
     async_trait,
-    model::{
-        channel::Message,
-        gateway::Ready,
-        id::{ChannelId, GuildId, RoleId},
-    },
+    model::{channel::Message, gateway::Ready},
     prelude::*,
     utils::MessageBuilder,
 };
-
-mod parse_channel_id;
-mod parse_guild_id;
-mod parse_regexp;
-mod parse_role_id;
-
-#[derive(Debug, Deserialize)]
-struct EnvConfig {
-    token: String,
-    #[serde(with = "parse_channel_id")]
-    report_channel: ChannelId,
-    #[serde(with = "parse_guild_id")]
-    guild: GuildId,
-    #[serde(with = "parse_role_id")]
-    role: RoleId,
-}
-
-#[derive(Debug, Deserialize)]
-struct Config {
-    rules: Vec<Filter>,
-}
-
-#[derive(Debug, Deserialize)]
-struct Filter {
-    #[serde(with = "parse_regexp")]
-    pattern: Regex,
-    note: String,
-}
+use std::{env, fs::File, io::BufReader};
 
 static CONFIG: OnceCell<Config> = OnceCell::new();
-
 static ENV_CONFIG: OnceCell<EnvConfig> = OnceCell::new();
 
 struct Handler;
@@ -122,7 +85,11 @@ impl EventHandler for Handler {
             println!("Error deleting message: {:?}", why);
         };
 
-        let mut member = env_config.guild.member(&ctx.http, &msg.author.id).await.unwrap();
+        let mut member = env_config
+            .guild
+            .member(&ctx.http, &msg.author.id)
+            .await
+            .unwrap();
         if let Err(why) = member.add_role(&ctx.http, &env_config.role).await {
             println!("Error adding a role: {:?}", why);
         };
@@ -144,7 +111,9 @@ async fn main() {
             .expect("Failed to parse CONFIG"),
         )
         .unwrap();
-    ENV_CONFIG.set(envy::from_env::<EnvConfig>().expect("Failed to parse CONFIG from env variables")).unwrap();
+    ENV_CONFIG
+        .set(envy::from_env::<EnvConfig>().expect("Failed to parse CONFIG from env variables"))
+        .unwrap();
 
     let mut client = Client::builder(
         &ENV_CONFIG.get().unwrap().token,
