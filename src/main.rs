@@ -1,3 +1,5 @@
+use discord_spam_reporter::parsers::*;
+
 use std::env;
 use std::fs::File;
 use std::io::BufReader;
@@ -5,7 +7,6 @@ use std::io::BufReader;
 use fancy_regex::Regex;
 use once_cell::sync::OnceCell;
 use serde::{self, Deserialize};
-
 use serenity::{
     async_trait,
     model::{
@@ -16,11 +17,6 @@ use serenity::{
     prelude::*,
     utils::MessageBuilder,
 };
-
-mod parse_channel_id;
-mod parse_guild_id;
-mod parse_regexp;
-mod parse_role_id;
 
 #[derive(Debug, Deserialize)]
 struct EnvConfig {
