@@ -1,9 +1,6 @@
 use discord_spam_reporter::parsers::*;
 
-use std::env;
-use std::fs::File;
-use std::io::BufReader;
-
+use std::{env, fs::File, io::BufReader};
 use fancy_regex::Regex;
 use once_cell::sync::OnceCell;
 use serde::{self, Deserialize};
