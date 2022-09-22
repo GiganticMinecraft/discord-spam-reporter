@@ -17,7 +17,7 @@ RUN cargo build --target x86_64-unknown-linux-musl --release
 
 FROM gcr.io/distroless/cc
 
-COPY --from=build --link --chown=nonroot:nonroot /app/target/x86_64-unknown-linux-musl/release/discord-spam-reporter /
+COPY --from=build --link /app/target/x86_64-unknown-linux-musl/release/discord-spam-reporter /
 USER nonroot
 
 ENTRYPOINT ["/discord-spam-reporter"]
