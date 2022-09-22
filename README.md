@@ -6,7 +6,12 @@
 
 ## 導入
 
-導入にはDiscordのBotトークンが必要です。
+以下のものを事前に用意する必要があります。
+
+* DiscordBotのトークン
+* Botを導入するサーバーのID
+* Botが通知を送信するチャンネルのID
+* Botが付与するロールのID
 
 ### バイナリを直接使う場合
 
@@ -16,14 +21,6 @@
 4. `config.yml` を以下の内容で作成する (内容は適宜書き換える)
 
 ```yml
-# 通知するチャンネルのID
-report_channel: 987654323109876543
-# 通知するサーバーのID
-guild: 918273645647382910
-# 荒らしと判定したユーザーに付与するロールのID
-role: 918273688817322922
-# Botのトークン
-token: "Your token here"
 # patternには正規表現を指定する。
 # 正規表現の書式は https://docs.rs/fancy-regex/latest/fancy_regex/#syntax を参照。
 rules:
@@ -33,12 +30,24 @@ rules:
     note: "free nitroを検知"
 ```
 
-5. 環境変数`CONFIG`に`config.yml`の存在する場所をフルパスまたはワーキングディレクトリからの相対パスで指定する  
-(例 `/home/kisaragi/projects/discord-spam-reporter/config.yml`, `./config.yml`\)
+5. `.env`ファイルもしくは環境変数に直接以下の変数を指定する
+
+```env
+# `config.yml`の存在する場所をフルパスまたはワーキングディレクトリからの相対パスで指定
+CONFIG=/path/to/your/config.yml
+# DiscordBotのトークン
+TOKEN=YourDiscordBotToken
+# Botを導入するサーバーのID
+GUILD=123456789101112131
+# Botが通知を送信するチャンネルのID
+REPORT_CHANNEL=123456789101112131
+# Botが付与するロールのID
+ROLE=123456789101112131
+```
 
 ### Dockerを使う場合
 
-1. `config.yml`を[上記](#バイナリを直接使う場合)と同様に作成する
+1. `config.yml`と`.env`を[上記](#バイナリを直接使う場合)と同様に作成する
 2. `docker-compose.yml`を以下の内容で作成する（内容は適宜書き換える）  
 `volumes`の`./config.yml`のパスは[上記](#バイナリを直接使う場合)で`CONFIG`を指定する場合のものと同様です。
 
@@ -46,12 +55,12 @@ rules:
 version: '3'
 services:
   bot:
-    image: ghcr.io/giganticminecraft/discord-spam-reporter/image:latest
+    image: ghcr.io/giganticminecraft/discord-spam-reporter:latest
     restart: always
     volumes:
       - ./config.yml:/config.yml
-    environment:
-      - CONFIG=/config.yml
+    env_file:
+      - ./.env
 ```
 
 3. `docker-compose up`
