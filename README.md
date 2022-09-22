@@ -4,6 +4,8 @@
 ![License](https://img.shields.io/github/license/GiganticMinecraft/discord-spam-reporter.svg?style=for-the-badge&color=blue)
 ![Top Language](https://img.shields.io/github/languages/top/GiganticMinecraft/discord-spam-reporter.svg?style=for-the-badge)
 
+指定した正規表現を満たすメッセージを削除し、投稿者にロールを付与するDiscordBotです。
+
 ## 導入
 
 以下のものを事前に用意する必要があります。
