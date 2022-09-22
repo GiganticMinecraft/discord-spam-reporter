@@ -6,6 +6,8 @@ use serenity::model::id::{ChannelId, GuildId, RoleId};
 
 #[derive(Debug, Deserialize)]
 pub struct EnvConfig {
+    #[serde(rename(deserialize = "config"))]
+    pub config_file_path: String,
     pub token: String,
     #[serde(with = "parse_channel_id")]
     pub report_channel: ChannelId,
