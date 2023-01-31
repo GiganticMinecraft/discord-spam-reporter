@@ -1,6 +1,6 @@
 # discord-spam-reporter
 
-![Build](https://img.shields.io/github/workflow/status/GiganticMinecraft/discord-spam-reporter/CI?logo=github&style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/GiganticMinecraft/discord-spam-reporter/docker.yml?style=for-the-badge)
 ![License](https://img.shields.io/github/license/GiganticMinecraft/discord-spam-reporter.svg?style=for-the-badge&color=blue)
 ![Top Language](https://img.shields.io/github/languages/top/GiganticMinecraft/discord-spam-reporter.svg?style=for-the-badge)
 
