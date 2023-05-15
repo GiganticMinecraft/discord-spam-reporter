@@ -15,9 +15,9 @@ RUN cargo chef cook --release --target x86_64-unknown-linux-musl --recipe-path r
 COPY --link . .
 RUN cargo build --target x86_64-unknown-linux-musl --release
 
-FROM gcr.io/distroless/cc
+### Runner
+FROM gcr.io/distroless/cc:nonroot
 
 COPY --from=build --link /app/target/x86_64-unknown-linux-musl/release/discord-spam-reporter /
-USER nonroot
 
 ENTRYPOINT ["/discord-spam-reporter"]
