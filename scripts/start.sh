@@ -5,4 +5,4 @@ if [ -z $CONFIG_FILE_URL ]; then
   mod-downloader
 fi
 
-/discord-spam-reporter
+discord-spam-reporter

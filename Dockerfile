@@ -22,7 +22,7 @@ FROM ghcr.io/giganticminecraft/mod-downloader:sha-d790865 AS downloader
 FROM gcr.io/distroless/cc:nonroot
 
 COPY --from=downloader --link /bin/mod-downloader /usr/local/bin/
-COPY --from=build --link /app/target/x86_64-unknown-linux-musl/release/discord-spam-reporter /
+COPY --from=build --link /app/target/x86_64-unknown-linux-musl/release/discord-spam-reporter /usr/local/bin/
 COPY --link ./scripts/start.sh /
 
 ENTRYPOINT ["/start.sh"]
