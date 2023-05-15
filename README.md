@@ -36,7 +36,7 @@ rules:
 
 ```env
 # `config.yml`の存在する場所をフルパスまたはワーキングディレクトリからの相対パスで指定
-CONFIG=/path/to/your/config.yml
+CONFIG_FILE_PATH=/path/to/your/config.yml
 # DiscordBotのトークン
 TOKEN=YourDiscordBotToken
 # Botを導入するサーバーのID
