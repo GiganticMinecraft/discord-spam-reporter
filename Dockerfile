@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.4
 ### Builder ###
-FROM clux/muslrust:1.72.0 AS chef
+FROM clux/muslrust:1.73.0 AS chef
 RUN cargo install cargo-chef
 WORKDIR /app
 
