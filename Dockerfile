@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.4
+# syntax=docker/dockerfile:1.7
 ### Builder ###
 FROM clux/muslrust:1.73.0 AS chef
 RUN cargo install cargo-chef
